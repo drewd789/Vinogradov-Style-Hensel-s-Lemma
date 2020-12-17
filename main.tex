@@ -1,0 +1,69 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{amssymb}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\title{Vinogradov Style Hensel's Lemma for Additive Forms}
+\author{Drew Duncan}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+I went through a lot of stuff last time, and there was probably some that I could have left out.  I tried to give motivation for why I care about this statement of Hensel's Lemma, but it wasn't strictly necessary.
+
+\section{Introduction}
+Hensel's Lemma roughly states that if a solution to an equation is found with sufficient accuracy, then it can used to compute a solution to arbitrary accuracy.
+
+There is an elementary proof of Hensel's Lemma for additive forms over $\mathbb{Q}_p$.  It is difficult to find a clear and complete proof of this result in the literature, so reproduce here.  Then, I attempt to generalize the proof to extension of $\mathbb{Q}_p$.
+
+\begin{theorem}
+Let $p>2$ and  $\gamma = \tau+1$ for $d=m p^\tau$ with $p \nmid m$ if $\tau \ge 1$, $\gamma = 1$ otherwise.  Suppose $a_1 x_1^d + \ldots + a_s x_s^d \equiv a \pmod{p^\gamma}$.  Then there exists $y_1, \ldots, y_s$ such that $a_1 y_1^d + \ldots a_s y_s^d \equiv a \pmod{p^\delta}$ for any $\delta \ge \gamma$.
+\end{theorem}
+
+\begin{proof}
+By a suitable change of variables, it suffices to show that $x^d \equiv a \pmod{p^\gamma}$ implies that there exists $y$ such that $y^d \equiv a \pmod{p^\delta}$ for and $\delta \ge \gamma$.  Suppose this holds.  Let $g$ be a generator for the cyclic group $(\mathbb{Z}/p^\delta\mathbb{Z})^\times = <g>$.  Then we have $x^d g^k \equiv a \pmod{p^\delta}$ for some exponent $k$.
+
+First, note that $g^k \equiv 1 \pmod{p^\gamma}$, where we consider g here to be the element obtained reducing modulo $p^\gamma$.  Then $g$ is a generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$.  It follows that $(p-1)p^{(\gamma-1)} \mid k$.
+
+Next, note that because the order of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$ is $(p-1)p^{(\delta-1)}$, we can replace $k$ with $k' = k + i(p-1)p^{(\delta-1)}$ and all of the above congruences continue to hold.  Factoring out $(p-1)$, we have $b + ip^c$ for some $b$ and $c$.  Solving for $i$ in $b + ip^c \equiv 0 \pmod{m}$ gives $d \mod k'$.
+\end{proof}
+
+For $p=2$, the proof is a bit more subtle.  Notice that the proof depended on the knowing the order of a generator of the group of units.  If $p^{\tau}$ divides the order of the generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$, then the result follows. This was easy to obtain because the group was cyclic.  This is also true for $(\mathbb{Z}/2\mathbb{Z})^\times$ and $(\mathbb{Z}/4\mathbb{Z})^\times$, but from then on it fails to be the case.  However, little is lost.
+
+\begin{theorem}
+Let $\gamma = \tau + 2$ for $d=m 2^\tau$ with $2 \nmid m$ if $\tau \ge 1$, $\gamma = 1$ otherwise.  Suppose $a_1 x_1^d + \ldots + a_s x_s^d \equiv a \pmod{p^\gamma}$.  Then there exists $y_1, \ldots, y_s$ such that $a_1 y_1^d + \ldots a_s y_s^d \equiv a \pmod{2^\delta}$ for any $\delta \ge \gamma$.
+\end{theorem}
+
+\begin{proof}
+For any group of units modulo a power of 2, the elements congruent to 1 modulo 4 are generate by 5.  Thus, any element of $\alpha \in (\mathbb{Z}/2^\delta\mathbb{Z})^\times$ can be written $\alpha = 5^k 3^j$ with $0 \le k < 2^{(\delta-2)}$ and $j \in \{0,1\}$.
+
+The case $\tau = 0$ is trivial.  If $\tau \ge 1$, then $\gamma \ge 3$, and so $2 \mid j$ which implies that $j=0$.  The argument for $d \mid k$ follows exactly as in the $p > 2$ case.
+\end{proof}
+
+Now we move on to extensions of $\mathbb{Q}_p$.  We state a result without proof.
+
+\begin{theorem}\label{leep}
+Let $K$ be a finite extension of $\mathbb{Q}_p$ with degree of ramification $e$, $\pi$ be a uniformizer for $K$, and $d=m p^\tau$ and $\gamma = \floor*{\frac{e}{p-1}} + e\tau + 1$.  A solution modulo $\pi^\gamma$ lifts to a solution in $K$.
+\end{theorem}
+
+The only proof I have is due to Dr.\ Leep and Sordo-Viera, and involves a lot of algebraic manipulations that don't give me much insight into the result.  If one can compute generators and their orders for the group of units modulo a power of $\pi$, then one can proceed with the ``Vinogradov-style" arguments above, finding a power of $\pi$ so that the orders are divisible by $p^\tau$, or have an order that is eventually finite.  I will attempt a simple argument for totally ramified extensions of $\mathbb{Q}_2$.  The surprise is that the $\gamma$ given in Theorem \ref{leep} is not optimal.
+
+Let's look at some examples for ramified quadratic extensions of $\mathbb{Q}_2$.
+
+Okay, now let's look at the generators and their orders modulo powers of $\pi$.
+
+You'll notice a pattern in the orders.
+
+\end{document}
