@@ -22,32 +22,36 @@
 \maketitle
 
 \section{Introduction}
-This is a proof of Hensel's Lemma for additive forms.
+This is a relatively elementary proof of Hensel's Lemma for additive forms which I took from Vinogradov \cite{vinogradov2016elements}, chapter 2, lemma 8.  (I first found reference to Vinogradov's proof in \cite{davenport1963homogeneous}.)  Vinogradov's own exposition of this proof leaves out some details, which I attempt to fill in below.
 
-Hensel's Lemma roughly states that if a solution to an equation is found with sufficient accuracy, then it can used to compute a solution to arbitrary accuracy.
+In this form, Hensel's Lemma gives conditions when a solution to an additive form over $\mathbb{Q}_p$ modulo some power of $p$ can be raised to a solution in $\mathbb{Q}_p$.  This proof can be extended in a straightforward way to extensions of $\mathbb{Q}_p$ given some data on the extension (in this case, raising a solution modulo some power of the uniformizer $\pi$). 
 
-There is an elementary proof of Hensel's Lemma for additive forms over $\mathbb{Q}_p$.  It is difficult to find a clear and complete proof of this result in the literature, so reproduce here.  Then, I attempt to generalize the proof to extension of $\mathbb{Q}_p$.
+However, there are some surprising details which arise in this extension of the proof.  The first is that the proof is substantially different from that given in \cite{leep2018diagonal}, which is the only proof known to me in the literature.  Second, the power depends on different information about the extension than in the other proof.  Finally, and most surprisingly, in some cases the power of $\pi$ needed to raise a solution is lower than that obtained in the other proof.
+
+\section{Additive Forms over $\mathbb{Q}_p$}
 
 \begin{theorem}
-Let $p>2$ and  $\gamma = \tau+1$ for $d=m p^\tau$ with $p \nmid m$ if $\tau \ge 1$, $\gamma = 1$ otherwise.  Suppose $a_1 x_1^d + \ldots + a_s x_s^d \equiv a \pmod{p^\gamma}$.  Then there exists $y_1, \ldots, y_s$ such that $a_1 y_1^d + \ldots a_s y_s^d \equiv a \pmod{p^\delta}$ for any $\delta \ge \gamma$.
+Let $p>2$ and  $\gamma = \tau+1$ for $d=m p^\tau$ with $p \nmid m$ if $\tau \ge 1$, $\gamma = 1$ otherwise.  Suppose $a_1 x_1^d + \ldots + a_s x_s^d \equiv a \pmod{p^\gamma}$ with at least one $x_i$ not divisible by $p$.  Then there exists $y_1, \ldots, y_s$ such that $a_1 y_1^d + \ldots a_s y_s^d \equiv a \pmod{p^\delta}$ for any $\delta \ge \gamma$.
 \end{theorem}
 
 \begin{proof}
-By a suitable change of variables, it suffices to show that $x^d \equiv a \pmod{p^\gamma}$ implies that there exists $y$ such that $y^d \equiv a \pmod{p^\delta}$ for and $\delta \ge \gamma$.  Suppose this holds.  Let $g$ be a generator for the cyclic group $(\mathbb{Z}/p^\delta\mathbb{Z})^\times = <g>$.  Then we have $x^d g^k \equiv a \pmod{p^\delta}$ for some exponent $k$.
+By a suitable change of variables, it suffices to show that $x^d \equiv a \pmod{p^\gamma}$ implies that there exists $y$ such that $y^d \equiv a \pmod{p^\delta}$ for and $\delta \ge \gamma$.  Suppose this holds.  Let $g$ be a generator for the cyclic group $(\mathbb{Z}/p^\delta\mathbb{Z})^\times = \langle g\rangle$.  Then we have $x^d g^k \equiv a \pmod{p^\delta}$ for some exponent $k$.
 
-First, note that $g^k \equiv 1 \pmod{p^\gamma}$, where we consider g here to be the element obtained reducing modulo $p^\gamma$.  Then $g$ is a generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$.  It follows that $(p-1)p^{(\gamma-1)} \mid k$.
+First, note that $g^k \equiv 1 \pmod{p^\gamma}$.  Considering $g$ now to be the element obtained reducing modulo $p^\gamma$,  then $g$ is a generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$.  It follows that $(p-1)p^{(\gamma-1)} \mid k$, or more precisely, $p^\tau \mid k$.  We now need only show that $m \mid k$.
 
-Next, note that because the order of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$ is $(p-1)p^{(\delta-1)}$, we can replace $k$ with $k' = k + i(p-1)p^{(\delta-1)}$ and all of the above congruences continue to hold.  Factoring out $(p-1)$, we have $b + ip^c$ for some $b$ and $c$.  Solving for $i$ in $b + ip^c \equiv 0 \pmod{m}$ gives $d \mod k'$.
+Next, note that because the order of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$ is $(p-1)p^{(\delta-1)}$, we can replace $k$ with $k' = k + i(p-1)p^{(\delta-1)}$ for any $i$ and all of the above congruences continue to hold.  Factoring out $(p-1)$ from both terms, we get $k' = (p-1)(b + ip^c)$ for some $b$ and $c$.  Solving for $i$ in $b + ip^c \equiv 0 \pmod{m}$ gives $i$ such that $d \mid k'$.
 \end{proof}
 
-For $p=2$, the proof is a bit more subtle.  Notice that the proof depended on the knowing the order of a generator of the group of units.  If $p^{\tau}$ divides the order of the generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$, then the result follows. This was easy to obtain because the group was cyclic.  This is also true for $(\mathbb{Z}/2\mathbb{Z})^\times$ and $(\mathbb{Z}/4\mathbb{Z})^\times$, but from then on it fails to be the case.  However, little is lost.
+Notice that this proof depended on knowing the order of a generator of the group of units modulo some power of $p$.  If $p^{\tau}$ divides the order of the generator of $(\mathbb{Z}/p^\delta\mathbb{Z})^\times$, then the result readily follows.  The minimal power of $p$ for which this happens is easy to obtain because these groups are cyclic.
+
+For $p=2$, the proof is a bit more subtle.  Although $(\mathbb{Z}/2\mathbb{Z})^\times$ and $(\mathbb{Z}/4\mathbb{Z})^\times$ are cyclic, from then on the groups of units are not generated by a single element.  However, this is not difficult to overcome.
 
 \begin{theorem}
 Let $\gamma = \tau + 2$ for $d=m 2^\tau$ with $2 \nmid m$ if $\tau \ge 1$, $\gamma = 1$ otherwise.  Suppose $a_1 x_1^d + \ldots + a_s x_s^d \equiv a \pmod{p^\gamma}$.  Then there exists $y_1, \ldots, y_s$ such that $a_1 y_1^d + \ldots a_s y_s^d \equiv a \pmod{2^\delta}$ for any $\delta \ge \gamma$.
 \end{theorem}
 
 \begin{proof}
-For any group of units modulo a power of 2, the elements congruent to 1 modulo 4 are generate by 5.  Thus, any element of $\alpha \in (\mathbb{Z}/2^\delta\mathbb{Z})^\times$ can be written $\alpha = 5^k 3^j$ with $0 \le k < 2^{(\delta-2)}$ and $j \in \{0,1\}$.
+For any group of units modulo a power of 2, the elements congruent to 1 modulo 4 are generated by 5.  Thus, any element of $\alpha \in (\mathbb{Z}/2^\delta\mathbb{Z})^\times$ can be written $\alpha = 5^k 3^j$ with $0 \le k < 2^{(\delta-2)}$ and $j \in \{0,1\}$.
 
 The case $\tau = 0$ is trivial.  If $\tau \ge 1$, then $\gamma \ge 3$, and so $2 \mid j$ which implies that $j=0$.  The argument for $d \mid k$ follows exactly as in the $p > 2$ case.
 \end{proof}
@@ -65,5 +69,8 @@ Let's look at some examples for ramified quadratic extensions of $\mathbb{Q}_2$.
 Okay, now let's look at the generators and their orders modulo powers of $\pi$.
 
 You'll notice a pattern in the orders.
+
+\bibliographystyle{unsrt}
+\bibliography{biblio}
 
 \end{document}
